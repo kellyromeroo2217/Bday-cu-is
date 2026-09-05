@@ -109,13 +109,6 @@
   .foto-sola img{width:100%;display:block;}
   .frase-tvd{font-style:italic;color:var(--vino);font-size:1.15rem;margin-top:16px;}
 
-  .marco-video{
-    width:100%;max-width:340px;margin:10px auto 0;aspect-ratio:9/16;
-    background:#000;border-radius:14px;overflow:hidden;
-    box-shadow:0 10px 30px rgba(138,58,91,.25);
-  }
-  .marco-video iframe{width:100%;height:100%;border:none;display:block;}
-
   .regalo-svg{width:180px;height:180px;cursor:pointer;user-select:none;transition:transform .3s;}
   .regalo-svg.latiendo{animation:latir 1.8s ease-in-out infinite;}
   @keyframes latir{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
@@ -129,12 +122,12 @@
   .mensaje-chat{
     width:100%;max-width:400px;margin:0 auto;
     background:linear-gradient(135deg,#6d2a44,var(--vino));
-    border-radius:18px;padding:40px 26px;color:#fff;
+    border-radius:18px;padding:44px 26px;color:#fff;
     box-shadow:0 18px 44px rgba(138,58,91,.45);
     animation:aparecer .8s ease;
+    min-height:120px;display:flex;align-items:center;justify-content:center;
   }
-  .mensaje-chat .r1{font-size:1.2rem;margin-bottom:14px;opacity:.95;}
-  .mensaje-chat .r2{font-size:1.5rem;font-weight:bold;line-height:1.4;}
+  .mensaje-chat .r1{font-size:1.5rem;font-weight:bold;line-height:1.4;font-style:italic;}
 
   .ticket{
     position:relative;width:100%;max-width:400px;margin:0 auto;
@@ -260,10 +253,10 @@
     <div class="contenido">
       <h2>Momentos juntos</h2>
       <div class="galeria">
-        <div class="foto"><img src="IMG_4687.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4688.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4690.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4693.jpeg" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4687" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4688" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4690" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4693" alt="Foto"></div>
       </div>
       <div class="nav">
         <button class="boton atras" onclick="ir(1)">Atr&aacute;s</button>
@@ -278,10 +271,10 @@
       <h2>M&aacute;s recuerdos</h2>
       <p>Porque no alcanzan las fotos para tanto cari&ntilde;o.</p>
       <div class="galeria">
-        <div class="foto"><img src="IMG_4694.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4697.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4700.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4701.jpeg" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4694" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4697" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4700" alt="Foto"></div>
+        <div class="foto"><img data-base="IMG_4701" alt="Foto"></div>
       </div>
       <div class="nav">
         <button class="boton atras" onclick="ir(2)">Atr&aacute;s</button>
@@ -290,12 +283,14 @@
     </div>
   </section>
 
-  <!-- 4. VIDEO -->
+  <!-- 4. ALMOHADA Y PASTEL -->
   <section class="escena" data-escena="4">
     <div class="contenido">
-      <h2>Un viaje por nuestros momentos</h2>
-      <div class="marco-video">
-        <iframe src="https://www.youtube.com/embed/HA4ooggBOpA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>La almohada, el pastel... &iquest;y este a&ntilde;o?</h2>
+      <p>Nuestra tradici&oacute;n favorita contin&uacute;a.</p>
+      <div class="galeria">
+        <div class="foto"><img data-base="IMG_4702" alt="La almohada"></div>
+        <div class="foto"><img data-base="IMG_4703" alt="El pastel"></div>
       </div>
       <div class="nav">
         <button class="boton atras" onclick="ir(3)">Atr&aacute;s</button>
@@ -304,15 +299,12 @@
     </div>
   </section>
 
-  <!-- 5. ALMOHADA Y PASTEL -->
+  <!-- 5. CHAT (conversacion) -->
   <section class="escena" data-escena="5">
     <div class="contenido">
-      <h2>La almohada, el pastel... &iquest;y este a&ntilde;o?</h2>
-      <p>Nuestra tradici&oacute;n favorita contin&uacute;a.</p>
-      <div class="galeria">
-        <div class="foto"><img src="IMG_4702.jpeg" alt="La almohada"></div>
-        <div class="foto"><img src="IMG_4703.jpeg" alt="El pastel"></div>
-      </div>
+      <h2>Dear Diary...</h2>
+      <div class="foto-sola"><img data-base="IMG_4704" alt="Nuestro chat"></div>
+      <p class="frase-tvd">I will always choose you.</p>
       <div class="nav">
         <button class="boton atras" onclick="ir(4)">Atr&aacute;s</button>
         <button class="boton" onclick="ir(6)">Siguiente</button>
@@ -320,21 +312,8 @@
     </div>
   </section>
 
-  <!-- 6. CHAT (conversacion) -->
+  <!-- 6. REGALO -->
   <section class="escena" data-escena="6">
-    <div class="contenido">
-      <h2>Dear Diary...</h2>
-      <div class="foto-sola"><img src="IMG_4704.PNG" alt="Nuestro chat"></div>
-      <p class="frase-tvd">I will always choose you.</p>
-      <div class="nav">
-        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(7)">Siguiente</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. REGALO -->
-  <section class="escena" data-escena="7">
     <div class="contenido">
       <h2>Y ahora... tu regalo</h2>
       <svg class="regalo-svg latiendo" id="regaloSvg" onclick="abrirRegalo()" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -357,13 +336,13 @@
       </svg>
       <p class="pista-toque">Toca el regalo para abrirlo</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(6)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
       </div>
     </div>
   </section>
 
-  <!-- 8. PISTAS -->
-  <section class="escena" data-escena="8">
+  <!-- 7. PISTAS -->
+  <section class="escena" data-escena="7">
     <div class="niebla"></div>
     <div class="contenido">
       <div class="emoji-flor">&#127801;</div>
@@ -372,22 +351,21 @@
     </div>
   </section>
 
-  <!-- 9. MENSAJE DIVERTIDO -->
-  <section class="escena" data-escena="9">
+  <!-- 8. MENSAJE 147 -->
+  <section class="escena" data-escena="8">
     <div class="contenido">
       <div class="mensaje-chat">
-        <div class="r1">147 episodios despu&eacute;s...</div>
-        <div class="r2">Damon Salvatore ha entrado al chat.</div>
+        <div class="r1" id="msg147"></div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(10)">Ver mi regalo</button>
+        <button class="boton atras" onclick="ir(7)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(9)">Ver mi regalo</button>
       </div>
     </div>
   </section>
 
-  <!-- 10. TICKET REAL -->
-  <section class="escena" data-escena="10">
+  <!-- 9. TICKET REAL -->
+  <section class="escena" data-escena="9">
     <div class="contenido">
       <h2>Tu regalo de este a&ntilde;o</h2>
       <div class="ticket">
@@ -398,19 +376,19 @@
         </div>
         <div class="ticket-perfo"></div>
         <div class="ticket-foto-wrap">
-          <div class="ticket-foto"><img src="IMG_4705.PNG" alt="Entradas"></div>
+          <div class="ticket-foto"><img data-base="IMG_4705" alt="Entradas"></div>
         </div>
         <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(11)">Siguiente</button>
+        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(10)">Siguiente</button>
       </div>
     </div>
   </section>
 
-  <!-- 11. CIERRE -->
-  <section class="escena" data-escena="11">
+  <!-- 10. CIERRE -->
+  <section class="escena" data-escena="10">
     <div class="contenido">
       <div class="emoji-flor">&#127799;</div>
       <h2>Falta muy poco</h2>
@@ -438,7 +416,7 @@
       <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">De tu hermano y tu cu&ntilde;is, we love you.</p>
       <p class="sub" style="margin-top:18px;">Happy Bday Katherina Petrova</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(10)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
         <button class="boton suave" onclick="reiniciar()">Ver de nuevo</button>
       </div>
     </div>
@@ -447,12 +425,27 @@
 </div>
 
 <script>
+  // ---- Carga de imagenes a prueba de nombres (prueba varias extensiones) ----
+  const EXTS=['.jpeg','.jpg','.JPEG','.JPG','.png','.PNG','.HEIC','.heic'];
+  function cargarImg(img){
+    const base=img.getAttribute('data-base');
+    let i=0;
+    function probar(){
+      if(i>=EXTS.length){ return; } // no encontro, deja el recuadro
+      img.onerror=function(){ i++; probar(); };
+      img.src=base+EXTS[i];
+    }
+    probar();
+  }
+  document.querySelectorAll('img[data-base]').forEach(cargarImg);
+
   const escenas = document.querySelectorAll('.escena');
 
   function ir(n){
     escenas.forEach(e=>e.classList.remove('activa'));
     escenas[n].classList.add('activa');
     escenas[n].scrollTop = 0;
+    if(n===8){ escribir147(); }
   }
 
   function abrirCarta(){
@@ -473,7 +466,7 @@
       setTimeout(function(){
         pistaActual=0;
         mostrarPista();
-        ir(8);
+        ir(7);
         d.classList.remove('on');
         svg.classList.remove('abierto');
         svg.classList.add('latiendo');
@@ -503,9 +496,24 @@
       (pistaActual >= pistas.length-1) ? "Ver mi sorpresa" : "Continuar";
   }
   function siguientePista(){
-    if(pistaActual >= pistas.length-1){ ir(9); return; }
+    if(pistaActual >= pistas.length-1){ ir(8); return; }
     pistaActual++;
     mostrarPista();
+  }
+
+  // mensaje 147 se escribe solo
+  let esc147=null;
+  function escribir147(){
+    const t=document.getElementById('msg147');
+    const texto="147 episodios despu\u00e9s...";
+    clearInterval(esc147);
+    t.textContent="";
+    let i=0;
+    esc147=setInterval(function(){
+      t.textContent=texto.slice(0,i);
+      i++;
+      if(i>texto.length){ clearInterval(esc147); }
+    },55);
   }
 
   function actualizarConteo(){
