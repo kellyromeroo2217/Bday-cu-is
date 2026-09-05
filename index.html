@@ -101,14 +101,6 @@
   }
   .foto img{width:100%;height:100%;object-fit:cover;display:block;}
 
-  .foto-sola{
-    width:100%;max-width:260px;margin:10px auto 0;
-    border:2px solid var(--rosa-medio);border-radius:12px;overflow:hidden;
-    box-shadow:0 8px 22px rgba(138,58,91,.18);background:var(--crema);
-  }
-  .foto-sola img{width:100%;display:block;}
-  .frase-tvd{font-style:italic;color:var(--vino);font-size:1.15rem;margin-top:16px;}
-
   .marco-video{
     width:100%;max-width:340px;margin:10px auto 0;aspect-ratio:9/16;
     background:#000;border-radius:14px;overflow:hidden;
@@ -126,32 +118,26 @@
 
   .pista-texto{font-size:1.35rem;color:var(--vino);line-height:1.6;font-style:italic;min-height:140px;display:flex;align-items:center;justify-content:center;}
 
-  /* TICKET combo: flip + shimmer + entrada */
-  .ticket-scene{perspective:1200px;width:100%;max-width:400px;margin:0 auto;}
-  .ticket-flip{
-    position:relative;width:100%;transition:transform .8s;transform-style:preserve-3d;
-    cursor:pointer;animation:ticketEntra .9s cubic-bezier(.2,.8,.2,1.2);
+  /* mensaje divertido antes del ticket */
+  .mensaje-chat{
+    width:100%;max-width:400px;margin:0 auto;
+    background:linear-gradient(135deg,#6d2a44,var(--vino));
+    border-radius:18px;padding:40px 26px;color:#fff;
+    box-shadow:0 18px 44px rgba(138,58,91,.45);
+    animation:aparecer .8s ease;
   }
-  .ticket-flip.volteado{transform:rotateY(180deg);}
-  @keyframes ticketEntra{
-    0%{transform:translateY(-40px) rotateX(20deg);opacity:0;}
-    100%{transform:translateY(0) rotateX(0);opacity:1;}
-  }
-  .ticket-cara{
+  .mensaje-chat .r1{font-size:1.2rem;margin-bottom:14px;opacity:.95;}
+  .mensaje-chat .r2{font-size:1.5rem;font-weight:bold;line-height:1.4;}
+
+  /* TICKET real */
+  .ticket{
+    position:relative;width:100%;max-width:400px;margin:0 auto;
+    background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));
     border-radius:18px;overflow:hidden;
     box-shadow:0 18px 44px rgba(138,58,91,.45);
-    background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));
+    animation:aparecer .7s ease;
   }
-  .ticket-cara.reverso{
-    position:absolute;inset:0;transform:rotateY(180deg);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:30px 24px;text-align:center;color:#fff;
-    background:linear-gradient(135deg,#6d2a44,var(--vino));
-  }
-  .ticket-cara.reverso .r1{font-size:1.25rem;margin-bottom:14px;opacity:.95;}
-  .ticket-cara.reverso .r2{font-size:1.5rem;font-weight:bold;line-height:1.4;}
   .ticket-top{padding:22px 22px 16px;color:#fff;text-align:left;position:relative;overflow:hidden;}
-  /* shimmer */
   .ticket-top::after{
     content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
     background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);
@@ -160,18 +146,17 @@
   @keyframes brillo{0%{left:-60%;}55%{left:130%;}100%{left:130%;}}
   .ticket .evento{font-size:1.6rem;margin-bottom:10px;letter-spacing:.5px;}
   .ticket .dato{font-size:1rem;margin:5px 0;opacity:.96;}
-  .ticket-perfo{position:relative;height:26px;border-top:2px dashed rgba(255,255,255,.6);background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
+  .ticket-perfo{position:relative;height:26px;border-top:2px dashed rgba(255,255,255,.6);}
   .ticket-perfo::before,.ticket-perfo::after{
     content:"";position:absolute;top:-14px;width:26px;height:26px;
     background:var(--rosa-claro);border-radius:50%;
   }
   .ticket-perfo::before{left:-13px;}
   .ticket-perfo::after{right:-13px;}
-  .ticket-foto-wrap{padding:0 16px 16px;background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
+  .ticket-foto-wrap{padding:0 16px 16px;}
   .ticket-foto{width:100%;border-radius:10px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.25);}
   .ticket-foto img{width:100%;display:block;}
-  .ticket-sub{color:#fff;text-align:center;font-size:.95rem;opacity:.95;padding:0 22px 20px;background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
-  .flip-hint{margin-top:14px;font-size:.85rem;color:var(--rosa-fuerte);font-style:italic;}
+  .ticket-sub{color:#fff;text-align:center;font-size:.95rem;opacity:.95;padding:0 22px 20px;}
 
   .conteo{display:flex;gap:12px;justify-content:center;margin:20px 0;flex-wrap:wrap;}
   .conteo .caja{
@@ -264,11 +249,10 @@
     </div>
   </section>
 
-  <!-- 2. GALERIA 1 (4 fotos) -->
+  <!-- 2. GALERIA 1 -->
   <section class="escena" data-escena="2">
     <div class="contenido">
       <h2>Momentos juntos</h2>
-      <p>Pronto volveremos a estar reunidos.</p>
       <div class="galeria">
         <div class="foto"><img src="IMG_4687.jpeg" alt="Foto"></div>
         <div class="foto"><img src="IMG_4688.jpeg" alt="Foto"></div>
@@ -330,21 +314,8 @@
     </div>
   </section>
 
-  <!-- 6. CHAT -->
+  <!-- 6. REGALO -->
   <section class="escena" data-escena="6">
-    <div class="contenido">
-      <h2>Dear Diary...</h2>
-      <div class="foto-sola"><img src="IMG_4704.png" alt="Nuestro chat"></div>
-      <p class="frase-tvd">I will always choose you.</p>
-      <div class="nav">
-        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(7)">Siguiente</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. REGALO -->
-  <section class="escena" data-escena="7">
     <div class="contenido">
       <h2>Y ahora... tu regalo</h2>
       <svg class="regalo-svg latiendo" id="regaloSvg" onclick="abrirRegalo()" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -367,13 +338,13 @@
       </svg>
       <p class="pista-toque">Toca el regalo para abrirlo</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(6)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
       </div>
     </div>
   </section>
 
-  <!-- 8. PISTAS -->
-  <section class="escena" data-escena="8">
+  <!-- 7. PISTAS -->
+  <section class="escena" data-escena="7">
     <div class="niebla"></div>
     <div class="contenido">
       <div class="emoji-flor">&#127801;</div>
@@ -382,31 +353,36 @@
     </div>
   </section>
 
-  <!-- 9. ENTRADAS (ticket combo) -->
+  <!-- 8. MENSAJE DIVERTIDO -->
+  <section class="escena" data-escena="8">
+    <div class="contenido">
+      <div class="mensaje-chat">
+        <div class="r1">147 episodios despu&eacute;s...</div>
+        <div class="r2">Damon Salvatore ha entrado al chat.</div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(7)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(9)">Ver mi regalo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TICKET REAL -->
   <section class="escena" data-escena="9">
     <div class="contenido">
       <h2>Tu regalo de este a&ntilde;o</h2>
-      <div class="ticket-scene">
-        <div class="ticket-flip" id="ticketFlip" onclick="voltearTicket()">
-          <div class="ticket-cara ticket" >
-            <div class="ticket-top">
-              <div class="evento">Ian Somerhalder</div>
-              <div class="dato">10 de octubre de 2026</div>
-              <div class="dato">San Antonio, Texas</div>
-            </div>
-            <div class="ticket-perfo"></div>
-            <div class="ticket-foto-wrap">
-              <div class="ticket-foto"><img src="IMG_4705.jpeg" alt="Entradas"></div>
-            </div>
-            <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
-          </div>
-          <div class="ticket-cara reverso">
-            <div class="r1">147 episodios despu&eacute;s...</div>
-            <div class="r2">Damon Salvatore ha entrado al chat.</div>
-          </div>
+      <div class="ticket">
+        <div class="ticket-top">
+          <div class="evento">Ian Somerhalder</div>
+          <div class="dato">10 de octubre de 2026</div>
+          <div class="dato">San Antonio, Texas</div>
         </div>
+        <div class="ticket-perfo"></div>
+        <div class="ticket-foto-wrap">
+          <div class="ticket-foto"><img src="IMG_4705.png" alt="Entradas"></div>
+        </div>
+        <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
       </div>
-      <p class="flip-hint">Toca el boleto</p>
       <div class="nav">
         <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
         <button class="boton" onclick="ir(10)">Siguiente</button>
@@ -440,7 +416,7 @@
         </ol>
       </div>
 
-      <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">De tu hermanito y tu cuñis, we love you.</p>
+      <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">De tu hermano y tu cu&ntilde;is, we love you.</p>
       <p class="sub" style="margin-top:18px;">Happy Bday Katherina Petrova</p>
       <div class="nav">
         <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
@@ -465,10 +441,6 @@
     document.getElementById('carta').classList.add('abierta');
   }
 
-  function voltearTicket(){
-    document.getElementById('ticketFlip').classList.toggle('volteado');
-  }
-
   let regaloYaAbierto=false;
   function abrirRegalo(){
     if(regaloYaAbierto) return;
@@ -482,7 +454,7 @@
       setTimeout(function(){
         pistaActual=0;
         mostrarPista();
-        ir(8);
+        ir(7);
         d.classList.remove('on');
         svg.classList.remove('abierto');
         svg.classList.add('latiendo');
@@ -510,10 +482,10 @@
       if(i>texto.length){ clearInterval(escribiendo); }
     },45);
     document.getElementById('btnPista').textContent =
-      (pistaActual >= pistas.length-1) ? "Ver detalles" : "Continuar";
+      (pistaActual >= pistas.length-1) ? "Ver mi sorpresa" : "Continuar";
   }
   function siguientePista(){
-    if(pistaActual >= pistas.length-1){ ir(9); return; }
+    if(pistaActual >= pistas.length-1){ ir(8); return; }
     pistaActual++;
     mostrarPista();
   }
@@ -535,8 +507,6 @@
   function reiniciar(){
     document.getElementById('sobre').style.display='block';
     document.getElementById('carta').classList.remove('abierta');
-    const tf=document.getElementById('ticketFlip');
-    if(tf) tf.classList.remove('volteado');
     ir(0);
   }
 
