@@ -42,7 +42,6 @@
     100%{transform:translateY(105vh) rotate(360deg);}
   }
 
-  /* niebla sutil para las pistas de Damon */
   .niebla{
     position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;
     background:radial-gradient(ellipse at 30% 40%, rgba(255,255,255,.5), transparent 60%),
@@ -148,16 +147,6 @@
   }
   .destello.on{opacity:1;}
 
-  .musica-btn{
-    position:fixed;top:16px;right:16px;z-index:40;
-    background:rgba(255,255,255,.8);border:1px solid var(--rosa-medio);
-    border-radius:30px;padding:8px 16px;font-family:inherit;font-size:.82rem;
-    color:var(--rosa-fuerte);cursor:pointer;box-shadow:0 4px 12px rgba(138,58,91,.15);
-  }
-
-  /* reproductores de youtube ocultos */
-  .yt-oculto{position:fixed;width:1px;height:1px;bottom:0;left:0;opacity:0;pointer-events:none;z-index:-1;}
-
   .emoji-flor{font-size:3rem;margin-bottom:14px;}
 
   @media(max-width:480px){
@@ -171,10 +160,6 @@
 
 <div class="petalos" id="petalos"></div>
 <div class="destello" id="destello"></div>
-<button class="musica-btn" id="musicaBtn" onclick="toggleMusica()">&#9834; Musica</button>
-
-<!-- ===== REPRODUCTORES DE YOUTUBE OCULTOS (solo audio de fondo) ===== -->
-<div id="ytHost" class="yt-oculto"></div>
 
 <div class="app">
 
@@ -335,61 +320,13 @@
 
 </div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
   const escenas = document.querySelectorAll('.escena');
-
-  /* ===== MUSICA POR PANTALLA (YouTube oculto) =====
-     Cada cancion se asigna a un rango de escenas. */
-  const CANCIONES = {
-    drop:   'huAUxWvdQIU',   // A Drop in the Ocean (desde portada)
-    feels:  'mlDm3uVr8tg',   // Feels So Close (viaje por nuestros momentos)
-    promise:'DCsJVpe6xbg',   // I promise this forever (edit)
-    never:  'u7DiFvqboBk'    // Never Let Me Go (tras "como Elena")
-  };
-
-  let player, apiLista=false, temaActual=null, volObjetivo=60;
-  function onYouTubeIframeAPIReady(){
-    player = new YT.Player('ytHost',{
-      height:'1',width:'1',
-      playerVars:{autoplay:0,controls:0,disablekb:1,playsinline:1},
-      events:{ 'onReady':function(){ apiLista=true; } }
-    });
-  }
-
-  // reproduce un video id si es distinto al actual
-  function ponerTema(id){
-    if(!apiLista || !player) return;
-    if(temaActual===id) return;
-    temaActual=id;
-    player.loadVideoById(id);
-    player.setVolume(volObjetivo);
-    sonando=true;
-    document.getElementById('musicaBtn').innerHTML='&#9834; Pausar';
-  }
-  function bajarVolumen(){ if(apiLista&&player){ player.setVolume(8); } }
-  function subirVolumen(){ if(apiLista&&player){ player.setVolume(volObjetivo); } }
-
-  // decide que suena en cada escena
-  function musicaDeEscena(n){
-    // 0-3: A Drop in the Ocean
-    if(n>=0 && n<=3){ ponerTema(CANCIONES.drop); subirVolumen(); }
-    // 4: video de ustedes -> baja
-    else if(n===4){ ponerTema(CANCIONES.drop); bajarVolumen(); }
-    // 5: Feels So Close
-    else if(n===5){ ponerTema(CANCIONES.feels); subirVolumen(); }
-    // 6,7 y primeras pistas: I promise this forever
-    else if(n===6 || n===7){ ponerTema(CANCIONES.promise); subirVolumen(); }
-    // 8: pistas -> se maneja aparte (Never entra tras "como Elena")
-    // 9,10: Never Let Me Go
-    else if(n===9 || n===10){ ponerTema(CANCIONES.never); subirVolumen(); }
-  }
 
   function ir(n){
     escenas.forEach(e=>e.classList.remove('activa'));
     escenas[n].classList.add('activa');
     escenas[n].scrollTop = 0;
-    if(n!==8) musicaDeEscena(n);
   }
 
   function abrirCarta(){
@@ -404,13 +341,10 @@
       pistaActual = 0;
       mostrarPista();
       ir(8);
-      // en las pistas sigue sonando I promise this forever
-      ponerTema(CANCIONES.promise); subirVolumen();
       d.classList.remove('on');
     }, 700);
   }
 
-  // secuencia de pistas
   const pistas = [
     "El 10 de octubre... tienes una cita.",
     "Querido diario: una ardilla me pregunto mi nombre.",
@@ -425,27 +359,11 @@
     setTimeout(function(){ t.textContent = pistas[pistaActual]; t.style.opacity = 1; }, 250);
     document.getElementById('btnPista').textContent =
       (pistaActual >= pistas.length-1) ? "Ver detalles" : "Continuar";
-    // cuando aparece "como Elena" (indice 3), arranca Never Let Me Go
-    if(pistaActual===3){ ponerTema(CANCIONES.never); subirVolumen(); }
   }
   function siguientePista(){
     if(pistaActual >= pistas.length-1){ ir(9); return; }
     pistaActual++;
     mostrarPista();
-  }
-
-  // control manual del boton de musica
-  let sonando=false;
-  function toggleMusica(){
-    if(!apiLista||!player) return;
-    const st = player.getPlayerState();
-    if(st===YT.PlayerState.PLAYING){
-      player.pauseVideo(); sonando=false;
-      document.getElementById('musicaBtn').innerHTML='&#9834; Musica';
-    } else {
-      player.playVideo(); sonando=true;
-      document.getElementById('musicaBtn').innerHTML='&#9834; Pausar';
-    }
   }
 
   function actualizarConteo(){
