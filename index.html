@@ -101,6 +101,14 @@
   }
   .foto img{width:100%;height:100%;object-fit:cover;display:block;}
 
+  .foto-sola{
+    width:100%;max-width:260px;margin:10px auto 0;
+    border:2px solid var(--rosa-medio);border-radius:12px;overflow:hidden;
+    box-shadow:0 8px 22px rgba(138,58,91,.18);background:var(--crema);
+  }
+  .foto-sola img{width:100%;display:block;}
+  .frase-tvd{font-style:italic;color:var(--vino);font-size:1.15rem;margin-top:16px;}
+
   .marco-video{
     width:100%;max-width:340px;margin:10px auto 0;aspect-ratio:9/16;
     background:#000;border-radius:14px;overflow:hidden;
@@ -118,7 +126,6 @@
 
   .pista-texto{font-size:1.35rem;color:var(--vino);line-height:1.6;font-style:italic;min-height:140px;display:flex;align-items:center;justify-content:center;}
 
-  /* mensaje divertido antes del ticket */
   .mensaje-chat{
     width:100%;max-width:400px;margin:0 auto;
     background:linear-gradient(135deg,#6d2a44,var(--vino));
@@ -129,7 +136,6 @@
   .mensaje-chat .r1{font-size:1.2rem;margin-bottom:14px;opacity:.95;}
   .mensaje-chat .r2{font-size:1.5rem;font-weight:bold;line-height:1.4;}
 
-  /* TICKET real */
   .ticket{
     position:relative;width:100%;max-width:400px;margin:0 auto;
     background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));
@@ -314,8 +320,21 @@
     </div>
   </section>
 
-  <!-- 6. REGALO -->
+  <!-- 6. CHAT (conversacion) -->
   <section class="escena" data-escena="6">
+    <div class="contenido">
+      <h2>Dear Diary...</h2>
+      <div class="foto-sola"><img src="IMG_4704.PNG" alt="Nuestro chat"></div>
+      <p class="frase-tvd">I will always choose you.</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(7)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REGALO -->
+  <section class="escena" data-escena="7">
     <div class="contenido">
       <h2>Y ahora... tu regalo</h2>
       <svg class="regalo-svg latiendo" id="regaloSvg" onclick="abrirRegalo()" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -338,13 +357,13 @@
       </svg>
       <p class="pista-toque">Toca el regalo para abrirlo</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(6)">Atr&aacute;s</button>
       </div>
     </div>
   </section>
 
-  <!-- 7. PISTAS -->
-  <section class="escena" data-escena="7">
+  <!-- 8. PISTAS -->
+  <section class="escena" data-escena="8">
     <div class="niebla"></div>
     <div class="contenido">
       <div class="emoji-flor">&#127801;</div>
@@ -353,22 +372,22 @@
     </div>
   </section>
 
-  <!-- 8. MENSAJE DIVERTIDO -->
-  <section class="escena" data-escena="8">
+  <!-- 9. MENSAJE DIVERTIDO -->
+  <section class="escena" data-escena="9">
     <div class="contenido">
       <div class="mensaje-chat">
         <div class="r1">147 episodios despu&eacute;s...</div>
         <div class="r2">Damon Salvatore ha entrado al chat.</div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(7)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(9)">Ver mi regalo</button>
+        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(10)">Ver mi regalo</button>
       </div>
     </div>
   </section>
 
-  <!-- 9. TICKET REAL -->
-  <section class="escena" data-escena="9">
+  <!-- 10. TICKET REAL -->
+  <section class="escena" data-escena="10">
     <div class="contenido">
       <h2>Tu regalo de este a&ntilde;o</h2>
       <div class="ticket">
@@ -379,19 +398,19 @@
         </div>
         <div class="ticket-perfo"></div>
         <div class="ticket-foto-wrap">
-          <div class="ticket-foto"><img src="IMG_4705.png" alt="Entradas"></div>
+          <div class="ticket-foto"><img src="IMG_4705.PNG" alt="Entradas"></div>
         </div>
         <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(10)">Siguiente</button>
+        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(11)">Siguiente</button>
       </div>
     </div>
   </section>
 
-  <!-- 10. CIERRE -->
-  <section class="escena" data-escena="10">
+  <!-- 11. CIERRE -->
+  <section class="escena" data-escena="11">
     <div class="contenido">
       <div class="emoji-flor">&#127799;</div>
       <h2>Falta muy poco</h2>
@@ -419,7 +438,7 @@
       <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">De tu hermano y tu cu&ntilde;is, we love you.</p>
       <p class="sub" style="margin-top:18px;">Happy Bday Katherina Petrova</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(10)">Atr&aacute;s</button>
         <button class="boton suave" onclick="reiniciar()">Ver de nuevo</button>
       </div>
     </div>
@@ -454,7 +473,7 @@
       setTimeout(function(){
         pistaActual=0;
         mostrarPista();
-        ir(7);
+        ir(8);
         d.classList.remove('on');
         svg.classList.remove('abierto');
         svg.classList.add('latiendo');
@@ -464,9 +483,8 @@
   }
 
   const pistas = [
-    "El 10 de octubre... tienes una cita.",
-    "\"Quieres lo que todos quieren... un amor que te consuma. Quieres pasi\u00f3n, aventura, y hasta un poco de peligro.\"",
-    "Prep\u00e1rate, porque lo que viene es real."
+    "En octubre tienes una cita...",
+    "\"Quieres lo que todos quieren... un amor que te consuma...\""
   ];
   let pistaActual = 0;
   let escribiendo=null;
@@ -485,7 +503,7 @@
       (pistaActual >= pistas.length-1) ? "Ver mi sorpresa" : "Continuar";
   }
   function siguientePista(){
-    if(pistaActual >= pistas.length-1){ ir(8); return; }
+    if(pistaActual >= pistas.length-1){ ir(9); return; }
     pistaActual++;
     mostrarPista();
   }
