@@ -91,7 +91,6 @@
   }
   .carta.abierta{display:block;}
   @keyframes aparecer{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-  .carta .diario{font-style:italic;color:var(--rosa-fuerte);margin-bottom:16px;}
   .carta .destacar{font-style:italic;color:var(--vino);font-size:1.12rem;}
   .firma{margin-top:18px;font-style:italic;color:var(--vino);text-align:right;}
 
@@ -127,31 +126,52 @@
 
   .pista-texto{font-size:1.35rem;color:var(--vino);line-height:1.6;font-style:italic;min-height:140px;display:flex;align-items:center;justify-content:center;}
 
-  /* ENTRADAS wow */
-  .ticket{
-    position:relative;width:100%;max-width:420px;margin:0 auto;
-    background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));
-    border-radius:18px;padding:0;overflow:hidden;
-    box-shadow:0 18px 44px rgba(138,58,91,.45);
-    animation:aparecer .8s ease;
+  /* TICKET combo: flip + shimmer + entrada */
+  .ticket-scene{perspective:1200px;width:100%;max-width:400px;margin:0 auto;}
+  .ticket-flip{
+    position:relative;width:100%;transition:transform .8s;transform-style:preserve-3d;
+    cursor:pointer;animation:ticketEntra .9s cubic-bezier(.2,.8,.2,1.2);
   }
-  .ticket-top{padding:22px 22px 16px;color:#fff;text-align:left;}
+  .ticket-flip.volteado{transform:rotateY(180deg);}
+  @keyframes ticketEntra{
+    0%{transform:translateY(-40px) rotateX(20deg);opacity:0;}
+    100%{transform:translateY(0) rotateX(0);opacity:1;}
+  }
+  .ticket-cara{
+    border-radius:18px;overflow:hidden;
+    box-shadow:0 18px 44px rgba(138,58,91,.45);
+    background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));
+  }
+  .ticket-cara.reverso{
+    position:absolute;inset:0;transform:rotateY(180deg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:30px 24px;text-align:center;color:#fff;
+    background:linear-gradient(135deg,#6d2a44,var(--vino));
+  }
+  .ticket-cara.reverso .r1{font-size:1.25rem;margin-bottom:14px;opacity:.95;}
+  .ticket-cara.reverso .r2{font-size:1.5rem;font-weight:bold;line-height:1.4;}
+  .ticket-top{padding:22px 22px 16px;color:#fff;text-align:left;position:relative;overflow:hidden;}
+  /* shimmer */
+  .ticket-top::after{
+    content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);
+    transform:skewX(-20deg);animation:brillo 3.5s ease-in-out infinite;
+  }
+  @keyframes brillo{0%{left:-60%;}55%{left:130%;}100%{left:130%;}}
   .ticket .evento{font-size:1.6rem;margin-bottom:10px;letter-spacing:.5px;}
   .ticket .dato{font-size:1rem;margin:5px 0;opacity:.96;}
-  .ticket-perfo{
-    position:relative;height:26px;
-    border-top:2px dashed rgba(255,255,255,.6);
-  }
+  .ticket-perfo{position:relative;height:26px;border-top:2px dashed rgba(255,255,255,.6);background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
   .ticket-perfo::before,.ticket-perfo::after{
     content:"";position:absolute;top:-14px;width:26px;height:26px;
     background:var(--rosa-claro);border-radius:50%;
   }
   .ticket-perfo::before{left:-13px;}
   .ticket-perfo::after{right:-13px;}
-  .ticket-foto-wrap{padding:0 16px 18px;}
+  .ticket-foto-wrap{padding:0 16px 16px;background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
   .ticket-foto{width:100%;border-radius:10px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.25);}
   .ticket-foto img{width:100%;display:block;}
-  .ticket-sub{color:#fff;text-align:center;font-size:.95rem;opacity:.95;padding:0 22px 20px;}
+  .ticket-sub{color:#fff;text-align:center;font-size:.95rem;opacity:.95;padding:0 22px 20px;background:linear-gradient(135deg,#a34568,var(--rosa-fuerte));}
+  .flip-hint{margin-top:14px;font-size:.85rem;color:var(--rosa-fuerte);font-style:italic;}
 
   .conteo{display:flex;gap:12px;justify-content:center;margin:20px 0;flex-wrap:wrap;}
   .conteo .caja{
@@ -179,7 +199,6 @@
   .notas ol{margin:0;padding-left:20px;}
   .notas li{font-size:1rem;line-height:1.7;margin-bottom:8px;color:var(--texto);}
 
-  /* corazon al tocar */
   .corazon-toque{
     position:fixed;z-index:60;pointer-events:none;font-size:26px;
     animation:subeCorazon 1s ease-out forwards;
@@ -229,13 +248,12 @@
           Toca para abrir la carta
         </div>
         <div class="carta" id="carta">
-          <p class="diario">Querido diario...</p>
           <p>Feliz cumplea&ntilde;os a la mejor cu&ntilde;is.</p>
-          <p>Eres una bendici&oacute;n en mi vida. Eres como esa hermana que siempre quise, y que Dios de alguna forma puso en mi camino.</p>
+          <p>Eres una bendici&oacute;n en nuestras vidas. Eres como esa hermana que siempre quise, y que Dios de alguna forma puso en mi camino.</p>
           <p>Gracias por ser como eres, por estar para m&iacute;, por cuidarme, por aconsejarme y por permitirme ser parte de tu vida.</p>
           <p>Doy gracias a Dios por haberte puesto en mi vida. Me has salvado de mucho, y espero compartir juntas lo que resta de nuestras vidas.</p>
           <p>Te admiro much&iacute;simo. Eres una mujer incre&iacute;ble, una mam&aacute; incre&iacute;ble, amiga e hija, y sin duda s&eacute; que para Ren&eacute; eres una esposa incre&iacute;ble.</p>
-          <p class="destacar">Always and forever. Como esas palabras que nos tatuamos juntas.</p>
+          <p class="destacar">Always and forever.</p>
           <p class="firma">Con todo mi amor</p>
         </div>
       </div>
@@ -246,7 +264,7 @@
     </div>
   </section>
 
-  <!-- 2. GALERIA 1 -->
+  <!-- 2. GALERIA 1 (4 fotos) -->
   <section class="escena" data-escena="2">
     <div class="contenido">
       <h2>Momentos juntas</h2>
@@ -255,7 +273,6 @@
         <div class="foto"><img src="IMG_4687.jpeg" alt="Foto"></div>
         <div class="foto"><img src="IMG_4688.jpeg" alt="Foto"></div>
         <div class="foto"><img src="IMG_4690.jpeg" alt="Foto"></div>
-        <div class="foto"><img src="IMG_4691.jpeg" alt="Foto"></div>
         <div class="foto"><img src="IMG_4693.jpeg" alt="Foto"></div>
       </div>
       <div class="nav">
@@ -287,7 +304,6 @@
   <section class="escena" data-escena="4">
     <div class="contenido">
       <h2>Un viaje por nuestros momentos</h2>
-      <p>Recuerdos en movimiento.</p>
       <div class="marco-video">
         <iframe src="https://www.youtube.com/embed/HA4ooggBOpA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -366,22 +382,31 @@
     </div>
   </section>
 
-  <!-- 9. ENTRADAS -->
+  <!-- 9. ENTRADAS (ticket combo) -->
   <section class="escena" data-escena="9">
     <div class="contenido">
       <h2>Tu regalo de este a&ntilde;o</h2>
-      <div class="ticket">
-        <div class="ticket-top">
-          <div class="evento">Ian Somerhalder</div>
-          <div class="dato">10 de octubre de 2026</div>
-          <div class="dato">San Antonio, Texas</div>
+      <div class="ticket-scene">
+        <div class="ticket-flip" id="ticketFlip" onclick="voltearTicket()">
+          <div class="ticket-cara ticket" >
+            <div class="ticket-top">
+              <div class="evento">Ian Somerhalder</div>
+              <div class="dato">10 de octubre de 2026</div>
+              <div class="dato">San Antonio, Texas</div>
+            </div>
+            <div class="ticket-perfo"></div>
+            <div class="ticket-foto-wrap">
+              <div class="ticket-foto"><img src="IMG_4705.jpeg" alt="Entradas"></div>
+            </div>
+            <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
+          </div>
+          <div class="ticket-cara reverso">
+            <div class="r1">147 episodios despu&eacute;s...</div>
+            <div class="r2">Damon Salvatore ha entrado al chat.</div>
+          </div>
         </div>
-        <div class="ticket-perfo"></div>
-        <div class="ticket-foto-wrap">
-          <div class="ticket-foto"><img src="IMG_4705.jpeg" alt="Entradas"></div>
-        </div>
-        <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
       </div>
+      <p class="flip-hint">Toca el boleto</p>
       <div class="nav">
         <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
         <button class="boton" onclick="ir(10)">Siguiente</button>
@@ -400,7 +425,7 @@
         <div class="caja"><span class="num" id="mins">--</span><span class="etq">Min</span></div>
       </div>
       <p>para tu cita con Ian.</p>
-      <h1 style="margin-top:18px;">Te queremos mucho</h1>
+      <h1 style="margin-top:18px;">Te amamos mucho</h1>
       <p style="font-style:italic;color:var(--vino);font-size:1.15rem;">Y cuando lo tengas enfrente... abr&aacute;zalo muy fuerte por m&iacute;.</p>
 
       <div class="notas">
@@ -416,7 +441,7 @@
       </div>
 
       <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">From your brother and your sister-in-law, we love you.</p>
-      <p class="sub" style="margin-top:18px;">Happy Birthday, Doris Elisa</p>
+      <p class="sub" style="margin-top:18px;">Happy Bday Katherina Petrova</p>
       <div class="nav">
         <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
         <button class="boton suave" onclick="reiniciar()">Ver de nuevo</button>
@@ -438,6 +463,10 @@
   function abrirCarta(){
     document.getElementById('sobre').style.display='none';
     document.getElementById('carta').classList.add('abierta');
+  }
+
+  function voltearTicket(){
+    document.getElementById('ticketFlip').classList.toggle('volteado');
   }
 
   let regaloYaAbierto=false;
@@ -506,10 +535,11 @@
   function reiniciar(){
     document.getElementById('sobre').style.display='block';
     document.getElementById('carta').classList.remove('abierta');
+    const tf=document.getElementById('ticketFlip');
+    if(tf) tf.classList.remove('volteado');
     ir(0);
   }
 
-  // corazones al tocar
   document.addEventListener('click', function(e){
     const c=document.createElement('div');
     c.className='corazon-toque';
@@ -520,7 +550,6 @@
     setTimeout(function(){ c.remove(); },1000);
   });
 
-  // petalos
   const cont=document.getElementById('petalos');
   const simbolos=['\u{1F338}','\u{1F337}','\u{1F497}','\u{1F339}'];
   for(let i=0;i<14;i++){
