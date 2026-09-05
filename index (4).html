@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleanos, Doris Elisa</title>
+<style>
+  :root{
+    --rosa-suave:#fbe4ec;
+    --rosa-claro:#f7d0e0;
+    --rosa-medio:#e59ab8;
+    --rosa-fuerte:#c76b91;
+    --vino:#8a3a5b;
+    --crema:#fff6f9;
+    --texto:#5a2a3d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Georgia','Times New Roman',serif;
+    background:linear-gradient(160deg,var(--crema),var(--rosa-claro));
+    color:var(--texto);
+    overflow:hidden;
+  }
+  .app{height:100vh;width:100%;position:relative;}
+
+  .escena{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:36px 24px;text-align:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .8s ease;
+    overflow-y:auto;
+  }
+  .escena.activa{opacity:1;pointer-events:auto;}
+
+  .petalos{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .petalo{position:absolute;top:-40px;opacity:.7;animation:caer linear infinite;}
+  @keyframes caer{
+    0%{transform:translateY(-40px) rotate(0deg);}
+    100%{transform:translateY(105vh) rotate(360deg);}
+  }
+
+  .niebla{
+    position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;
+    background:radial-gradient(ellipse at 30% 40%, rgba(255,255,255,.5), transparent 60%),
+               radial-gradient(ellipse at 70% 60%, rgba(231,154,184,.35), transparent 60%);
+    transition:opacity 1s ease;
+  }
+  .escena.activa .niebla{opacity:1;animation:flotar 8s ease-in-out infinite;}
+  @keyframes flotar{0%,100%{transform:translateX(0);}50%{transform:translateX(20px);}}
+
+  .contenido{position:relative;z-index:2;max-width:540px;width:100%;}
+
+  h1{font-size:2.4rem;color:var(--vino);margin-bottom:12px;line-height:1.2;}
+  h2{font-size:1.6rem;color:var(--rosa-fuerte);margin-bottom:18px;}
+  p{font-size:1.05rem;line-height:1.7;margin-bottom:14px;}
+  .sub{font-size:.95rem;color:var(--rosa-fuerte);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+
+  .boton{
+    margin-top:24px;background:var(--rosa-fuerte);color:#fff;border:none;
+    padding:14px 34px;font-size:1rem;font-family:inherit;border-radius:40px;
+    cursor:pointer;letter-spacing:1px;box-shadow:0 6px 18px rgba(199,107,145,.4);
+    transition:transform .2s,background .2s;
+  }
+  .boton:hover{transform:scale(1.05);background:var(--vino);}
+  .boton.suave{background:transparent;color:var(--rosa-fuerte);box-shadow:none;text-decoration:underline;padding:10px;font-size:.9rem;}
+
+  .nav{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;}
+  .boton.atras{
+    background:transparent;color:var(--rosa-fuerte);
+    border:2px solid var(--rosa-medio);box-shadow:none;
+  }
+  .boton.atras:hover{background:var(--rosa-suave);color:var(--vino);}
+
+  .sobre-wrap{width:100%;display:flex;flex-direction:column;align-items:center;}
+  .sobre{
+    width:100%;max-width:420px;cursor:pointer;
+    background:var(--rosa-medio);border-radius:12px;
+    padding:60px 24px;text-align:center;color:#fff;
+    box-shadow:0 10px 30px rgba(138,58,91,.25);
+    transition:transform .3s;
+  }
+  .sobre:hover{transform:translateY(-4px);}
+  .carta{
+    background:var(--crema);border:1px solid var(--rosa-medio);border-radius:14px;
+    padding:28px 24px;box-shadow:0 10px 30px rgba(138,58,91,.15);
+    text-align:left;display:none;animation:aparecer .8s ease;
+  }
+  .carta.abierta{display:block;}
+  @keyframes aparecer{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .carta .diario{font-style:italic;color:var(--rosa-fuerte);margin-bottom:16px;}
+  .carta .destacar{font-style:italic;color:var(--vino);font-size:1.12rem;}
+  .firma{margin-top:18px;font-style:italic;color:var(--vino);text-align:right;}
+
+  .galeria{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;margin-top:10px;}
+  .foto{
+    aspect-ratio:1/1;background:var(--rosa-suave);border:2px dashed var(--rosa-medio);
+    border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;color:var(--rosa-fuerte);overflow:hidden;text-align:center;padding:6px;
+  }
+  .foto img{width:100%;height:100%;object-fit:cover;}
+
+  /* foto sola centrada (chat) */
+  .foto-sola{
+    width:100%;max-width:340px;margin:10px auto 0;
+    border:2px solid var(--rosa-medio);border-radius:12px;overflow:hidden;
+    box-shadow:0 8px 22px rgba(138,58,91,.18);background:var(--crema);
+  }
+  .foto-sola img{width:100%;display:block;}
+  .frase-tvd{font-style:italic;color:var(--vino);font-size:1.15rem;margin-top:16px;}
+
+  .marco-video{
+    width:100%;aspect-ratio:16/9;background:var(--rosa-suave);
+    border:2px dashed var(--rosa-medio);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--rosa-fuerte);font-size:.9rem;margin-top:10px;overflow:hidden;text-align:center;padding:10px;
+  }
+  .marco-video video,.marco-video iframe{width:100%;height:100%;border:none;}
+
+  .regalo-svg{width:180px;height:180px;cursor:pointer;animation:latir 1.8s ease-in-out infinite;user-select:none;}
+  @keyframes latir{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+  .pista-toque{margin-top:18px;font-size:.9rem;color:var(--rosa-fuerte);}
+
+  .pista-texto{font-size:1.4rem;color:var(--vino);line-height:1.6;font-style:italic;min-height:120px;display:flex;align-items:center;justify-content:center;transition:opacity .3s;}
+
+  .ticket{
+    background:linear-gradient(135deg,var(--vino),var(--rosa-fuerte));color:#fff;
+    border-radius:16px;padding:26px 22px;width:100%;
+    box-shadow:0 12px 34px rgba(138,58,91,.35);text-align:left;
+  }
+  .ticket .evento{font-size:1.5rem;margin-bottom:6px;}
+  .ticket .dato{font-size:1rem;margin:4px 0;opacity:.95;}
+  .ticket .linea{border-top:2px dashed rgba(255,255,255,.5);margin:16px 0;}
+  .ticket-foto{
+    width:100%;background:rgba(255,255,255,.15);
+    border:2px dashed rgba(255,255,255,.5);border-radius:10px;
+    margin-top:14px;overflow:hidden;
+  }
+  .ticket-foto img{width:100%;display:block;}
+
+  .conteo{display:flex;gap:14px;justify-content:center;margin:22px 0;}
+  .conteo .caja{
+    background:var(--crema);border:1px solid var(--rosa-medio);border-radius:12px;
+    padding:14px 16px;min-width:70px;box-shadow:0 6px 16px rgba(138,58,91,.12);
+  }
+  .conteo .num{font-size:1.9rem;color:var(--vino);display:block;line-height:1;}
+  .conteo .etq{font-size:.72rem;color:var(--rosa-fuerte);text-transform:uppercase;letter-spacing:1px;}
+
+  .destello{
+    position:fixed;inset:0;background:radial-gradient(circle,#fff,var(--rosa-claro));
+    opacity:0;pointer-events:none;z-index:50;transition:opacity .5s;
+  }
+  .destello.on{opacity:1;}
+
+  .notas{
+    background:var(--crema);border:1px solid var(--rosa-medio);border-radius:14px;
+    padding:22px 24px;margin:22px 0 6px;text-align:left;
+    box-shadow:0 8px 22px rgba(138,58,91,.12);
+  }
+  .notas .titulo-notas{
+    font-size:.95rem;color:var(--rosa-fuerte);letter-spacing:1px;text-transform:uppercase;
+    margin-bottom:14px;text-align:center;
+  }
+  .notas ol{margin:0;padding-left:20px;}
+  .notas li{font-size:1rem;line-height:1.7;margin-bottom:8px;color:var(--texto);}
+
+  .emoji-flor{font-size:3rem;margin-bottom:14px;}
+
+  @media(max-width:480px){
+    h1{font-size:2rem;}
+    .pista-texto{font-size:1.2rem;}
+    .conteo .caja{min-width:60px;padding:12px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="petalos" id="petalos"></div>
+<div class="destello" id="destello"></div>
+
+<div class="app">
+
+  <!-- 0. PORTADA -->
+  <section class="escena activa" data-escena="0">
+    <div class="contenido">
+      <div class="emoji-flor">&#127800;</div>
+      <p class="sub">Un regalo para ti</p>
+      <h1>Feliz Cumpleanos,<br>Doris Elisa</h1>
+      <p>Aunque hoy estemos lejos, preparamos algo especial para ti.</p>
+      <button class="boton" onclick="ir(1)">Toca para abrir</button>
+    </div>
+  </section>
+
+  <!-- 1. CARTA -->
+  <section class="escena" data-escena="1">
+    <div class="contenido">
+      <h2>Para ti, con carino</h2>
+      <div class="sobre-wrap">
+        <div class="sobre" id="sobre" onclick="abrirCarta()">
+          <div style="font-size:2.4rem;margin-bottom:10px;">&#128140;</div>
+          Toca para abrir la carta
+        </div>
+        <div class="carta" id="carta">
+          <p class="diario">Querido diario...</p>
+          <p>Feliz cumpleanos a la mejor cunis.</p>
+          <p>Eres una bendicion en mi vida. Eres como esa hermana que siempre quise, y que Dios de alguna forma puso en mi camino.</p>
+          <p>Gracias por ser como eres, por estar para mi, por cuidarme, por aconsejarme y por permitirme ser parte de tu vida.</p>
+          <p>Doy gracias a Dios por haberte puesto en mi vida. Me has salvado de mucho, y espero compartir juntas lo que resta de nuestras vidas.</p>
+          <p>Te admiro muchisimo. Eres una mujer increible, una mama increible, amiga e hija, y sin duda se que para Rene eres una esposa increible.</p>
+          <p class="destacar">Always and forever. Como esas palabras que nos tatuamos juntas.</p>
+          <p class="firma">Con todo mi amor</p>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(0)">Atras</button>
+        <button class="boton" onclick="ir(2)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. GALERIA 1 (5 fotos) -->
+  <section class="escena" data-escena="2">
+    <div class="contenido">
+      <h2>Momentos juntas</h2>
+      <p>Algunos recuerdos que atesoramos.</p>
+      <div class="galeria">
+        <div class="foto"><img src="IMG_4687.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4688.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4690.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4691.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4693.jpeg" alt="Foto"></div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(1)">Atras</button>
+        <button class="boton" onclick="ir(3)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GALERIA 2 (4 fotos) -->
+  <section class="escena" data-escena="3">
+    <div class="contenido">
+      <h2>Mas recuerdos</h2>
+      <p>Porque no alcanzan las fotos para tanto carino.</p>
+      <div class="galeria">
+        <div class="foto"><img src="IMG_4694.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4697.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4700.jpeg" alt="Foto"></div>
+        <div class="foto"><img src="IMG_4701.jpeg" alt="Foto"></div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(2)">Atras</button>
+        <button class="boton" onclick="ir(4)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. VIDEO -->
+  <section class="escena" data-escena="4">
+    <div class="contenido">
+      <h2>Un viaje por nuestros momentos</h2>
+      <p>Recuerdos en movimiento.</p>
+      <div class="marco-video">[Aqui va el video]</div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(3)">Atras</button>
+        <button class="boton" onclick="ir(5)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ALMOHADA Y PASTEL -->
+  <section class="escena" data-escena="5">
+    <div class="contenido">
+      <h2>La almohada, el pastel... y este ano?</h2>
+      <p>Nuestra tradicion favorita continua.</p>
+      <div class="galeria">
+        <div class="foto"><img src="IMG_4702.jpeg" alt="La almohada"></div>
+        <div class="foto"><img src="IMG_4703.jpeg" alt="El pastel"></div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(4)">Atras</button>
+        <button class="boton" onclick="ir(6)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CHAT (Dear Diary) -->
+  <section class="escena" data-escena="6">
+    <div class="contenido">
+      <h2>Dear Diary...</h2>
+      <div class="foto-sola"><img src="IMG_4704.png" alt="Nuestro chat"></div>
+      <p class="frase-tvd">I will always choose you.</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(5)">Atras</button>
+        <button class="boton" onclick="ir(7)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REGALO -->
+  <section class="escena" data-escena="7">
+    <div class="contenido">
+      <h2>Y ahora... tu regalo</h2>
+      <svg class="regalo-svg" onclick="abrirRegalo()" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="90" width="120" height="80" rx="8" fill="#e59ab8"/>
+        <rect x="40" y="90" width="120" height="24" rx="6" fill="#c76b91"/>
+        <rect x="90" y="90" width="20" height="80" fill="#8a3a5b"/>
+        <g>
+          <circle cx="100" cy="70" r="10" fill="#c76b91"/>
+          <circle cx="88" cy="64" r="9" fill="#e59ab8"/>
+          <circle cx="112" cy="64" r="9" fill="#e59ab8"/>
+          <circle cx="92" cy="78" r="9" fill="#f7d0e0"/>
+          <circle cx="108" cy="78" r="9" fill="#f7d0e0"/>
+          <circle cx="100" cy="70" r="5" fill="#fff6f9"/>
+          <ellipse cx="76" cy="80" rx="10" ry="5" fill="#b98aa0" transform="rotate(-30 76 80)"/>
+          <ellipse cx="124" cy="80" rx="10" ry="5" fill="#b98aa0" transform="rotate(30 124 80)"/>
+        </g>
+      </svg>
+      <p class="pista-toque">Toca el regalo para abrirlo</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(6)">Atras</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PISTAS -->
+  <section class="escena" data-escena="8">
+    <div class="niebla"></div>
+    <div class="contenido">
+      <div class="emoji-flor">&#127801;</div>
+      <div class="pista-texto" id="pistaTexto"></div>
+      <button class="boton" id="btnPista" onclick="siguientePista()">Continuar</button>
+    </div>
+  </section>
+
+  <!-- 9. ENTRADAS -->
+  <section class="escena" data-escena="9">
+    <div class="contenido">
+      <div class="ticket">
+        <div class="evento">Ian Somerhalder</div>
+        <div class="dato">&#128197; 10 de octubre de 2026</div>
+        <div class="dato">&#128205; San Antonio, Texas</div>
+        <div class="linea"></div>
+        <div class="dato">Tienes entradas para verlo en persona.</div>
+        <div class="ticket-foto"><img src="IMG_4705.jpeg" alt="Entradas"></div>
+      </div>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(8)">Atras</button>
+        <button class="boton" onclick="ir(10)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. CIERRE -->
+  <section class="escena" data-escena="10">
+    <div class="contenido">
+      <div class="emoji-flor">&#127799;</div>
+      <h2>Falta muy poco</h2>
+      <div class="conteo" id="conteo">
+        <div class="caja"><span class="num" id="dias">--</span><span class="etq">Dias</span></div>
+        <div class="caja"><span class="num" id="horas">--</span><span class="etq">Horas</span></div>
+        <div class="caja"><span class="num" id="mins">--</span><span class="etq">Min</span></div>
+      </div>
+      <p>para tu cita con Ian.</p>
+      <h1 style="margin-top:20px;">Te queremos mucho</h1>
+      <p>Estas a punto de vivir tu propia historia, como Elena. Cumple ese sueno que compartimos las dos.</p>
+      <p style="font-style:italic;color:var(--vino);font-size:1.15rem;">Y cuando lo tengas enfrente... abrazalo muy fuerte por mi.</p>
+
+      <div class="notas">
+        <div class="titulo-notas">Notas importantes</div>
+        <ol>
+          <li>Rene es complice, ya lo sabe y el te llevara.</li>
+          <li>No queda lejos de donde viven (segun mis calculos con la IA, jaja).</li>
+          <li>Te enviare los datos y los QR al correo con toda la info.</li>
+          <li>Por favor pidele a Ian un saludo para mi &#129396;</li>
+          <li>Always and forever.</li>
+          <li>Dile que Maklin es Damon en la vida real, jaja.</li>
+        </ol>
+      </div>
+
+      <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">From your brother and your sister-in-law, we love you.</p>
+      <p class="sub" style="margin-top:20px;">Feliz cumpleanos, Doris Elisa</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(9)">Atras</button>
+        <button class="boton suave" onclick="reiniciar()">Ver de nuevo</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const escenas = document.querySelectorAll('.escena');
+
+  function ir(n){
+    escenas.forEach(e=>e.classList.remove('activa'));
+    escenas[n].classList.add('activa');
+    escenas[n].scrollTop = 0;
+  }
+
+  function abrirCarta(){
+    document.getElementById('sobre').style.display='none';
+    document.getElementById('carta').classList.add('abierta');
+  }
+
+  function abrirRegalo(){
+    const d = document.getElementById('destello');
+    d.classList.add('on');
+    setTimeout(function(){
+      pistaActual = 0;
+      mostrarPista();
+      ir(8);
+      d.classList.remove('on');
+    }, 700);
+  }
+
+  const pistas = [
+    "El 10 de octubre... tienes una cita.",
+    "\"Quieres lo que todos quieren... un amor que te consuma. Quieres pasion, aventura, y hasta un poco de peligro.\"",
+    "Estas a punto de vivir tu propia historia, como Elena.",
+    "Lista para conocerlo?"
+  ];
+  let pistaActual = 0;
+  function mostrarPista(){
+    const t = document.getElementById('pistaTexto');
+    t.style.opacity = 0;
+    setTimeout(function(){ t.textContent = pistas[pistaActual]; t.style.opacity = 1; }, 250);
+    document.getElementById('btnPista').textContent =
+      (pistaActual >= pistas.length-1) ? "Ver detalles" : "Continuar";
+  }
+  function siguientePista(){
+    if(pistaActual >= pistas.length-1){ ir(9); return; }
+    pistaActual++;
+    mostrarPista();
+  }
+
+  function actualizarConteo(){
+    const meta = new Date('2026-10-10T00:00:00');
+    const ahora = new Date();
+    let diff = Math.max(0, meta - ahora);
+    const dias = Math.floor(diff/86400000); diff -= dias*86400000;
+    const horas = Math.floor(diff/3600000); diff -= horas*3600000;
+    const mins = Math.floor(diff/60000);
+    document.getElementById('dias').textContent = dias;
+    document.getElementById('horas').textContent = horas;
+    document.getElementById('mins').textContent = mins;
+  }
+  setInterval(actualizarConteo, 30000);
+  actualizarConteo();
+
+  function reiniciar(){
+    document.getElementById('sobre').style.display='block';
+    document.getElementById('carta').classList.remove('abierta');
+    ir(0);
+  }
+
+  const cont = document.getElementById('petalos');
+  const simbolos = ['\u{1F338}','\u{1F337}','\u{1F497}','\u{1F339}'];
+  for(let i=0;i<14;i++){
+    const p = document.createElement('div');
+    p.className='petalo';
+    p.textContent = simbolos[Math.floor(Math.random()*simbolos.length)];
+    p.style.left = Math.random()*100+'%';
+    p.style.animationDuration = (7+Math.random()*8)+'s';
+    p.style.animationDelay = (Math.random()*8)+'s';
+    p.style.fontSize = (16+Math.random()*16)+'px';
+    cont.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
