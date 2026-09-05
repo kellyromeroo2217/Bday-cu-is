@@ -109,6 +109,15 @@
   .foto-sola img{width:100%;display:block;}
   .frase-tvd{font-style:italic;color:var(--vino);font-size:1.15rem;margin-top:16px;}
 
+  .marco-video{
+    width:100%;max-width:320px;margin:10px auto 0;aspect-ratio:9/16;
+    background:#000;border-radius:14px;overflow:hidden;
+    box-shadow:0 10px 30px rgba(138,58,91,.25);
+  }
+  .marco-video iframe{width:100%;height:100%;border:none;display:block;}
+  .video-link{margin-top:12px;font-size:.85rem;}
+  .video-link a{color:var(--rosa-fuerte);}
+
   .regalo-svg{width:180px;height:180px;cursor:pointer;user-select:none;transition:transform .3s;}
   .regalo-svg.latiendo{animation:latir 1.8s ease-in-out infinite;}
   @keyframes latir{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
@@ -283,8 +292,23 @@
     </div>
   </section>
 
-  <!-- 4. ALMOHADA Y PASTEL -->
+  <!-- 4. VIDEO -->
   <section class="escena" data-escena="4">
+    <div class="contenido">
+      <h2>Un viaje por nuestros momentos</h2>
+      <div class="marco-video">
+        <iframe src="https://www.youtube.com/embed/RU9EUbvrSAk?playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="video-link">Si no carga, <a href="https://youtube.com/shorts/RU9EUbvrSAk" target="_blank" rel="noopener">t&oacute;calo aqu&iacute;</a>.</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(3)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(5)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ALMOHADA Y PASTEL -->
+  <section class="escena" data-escena="5">
     <div class="contenido">
       <h2>La almohada, el pastel... &iquest;y este a&ntilde;o?</h2>
       <p>Nuestra tradici&oacute;n favorita contin&uacute;a.</p>
@@ -293,27 +317,27 @@
         <div class="foto"><img data-base="IMG_4703" alt="El pastel"></div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(3)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(5)">Siguiente</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. CHAT (conversacion) -->
-  <section class="escena" data-escena="5">
-    <div class="contenido">
-      <h2>Dear Diary...</h2>
-      <div class="foto-sola"><img data-base="IMG_4704" alt="Nuestro chat"></div>
-      <p class="frase-tvd">I will always choose you.</p>
-      <div class="nav">
         <button class="boton atras" onclick="ir(4)">Atr&aacute;s</button>
         <button class="boton" onclick="ir(6)">Siguiente</button>
       </div>
     </div>
   </section>
 
-  <!-- 6. REGALO -->
+  <!-- 6. CHAT (conversacion) -->
   <section class="escena" data-escena="6">
+    <div class="contenido">
+      <h2>Dear Diary...</h2>
+      <div class="foto-sola"><img data-base="IMG_4704" alt="Nuestro chat"></div>
+      <p class="frase-tvd">I will always choose you.</p>
+      <div class="nav">
+        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(7)">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REGALO -->
+  <section class="escena" data-escena="7">
     <div class="contenido">
       <h2>Y ahora... tu regalo</h2>
       <svg class="regalo-svg latiendo" id="regaloSvg" onclick="abrirRegalo()" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -336,13 +360,13 @@
       </svg>
       <p class="pista-toque">Toca el regalo para abrirlo</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(5)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(6)">Atr&aacute;s</button>
       </div>
     </div>
   </section>
 
-  <!-- 7. PISTAS -->
-  <section class="escena" data-escena="7">
+  <!-- 8. PISTAS -->
+  <section class="escena" data-escena="8">
     <div class="niebla"></div>
     <div class="contenido">
       <div class="emoji-flor">&#127801;</div>
@@ -351,21 +375,21 @@
     </div>
   </section>
 
-  <!-- 8. MENSAJE 147 -->
-  <section class="escena" data-escena="8">
+  <!-- 9. MENSAJE 147 -->
+  <section class="escena" data-escena="9">
     <div class="contenido">
       <div class="mensaje-chat">
         <div class="r1" id="msg147"></div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(7)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(9)">Ver mi regalo</button>
+        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(10)">Ver mi regalo</button>
       </div>
     </div>
   </section>
 
-  <!-- 9. TICKET REAL -->
-  <section class="escena" data-escena="9">
+  <!-- 10. TICKET REAL -->
+  <section class="escena" data-escena="10">
     <div class="contenido">
       <h2>Tu regalo de este a&ntilde;o</h2>
       <div class="ticket">
@@ -381,14 +405,14 @@
         <div class="ticket-sub">Tienes entradas para conocerlo en persona.</div>
       </div>
       <div class="nav">
-        <button class="boton atras" onclick="ir(8)">Atr&aacute;s</button>
-        <button class="boton" onclick="ir(10)">Siguiente</button>
+        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
+        <button class="boton" onclick="ir(11)">Siguiente</button>
       </div>
     </div>
   </section>
 
-  <!-- 10. CIERRE -->
-  <section class="escena" data-escena="10">
+  <!-- 11. CIERRE -->
+  <section class="escena" data-escena="11">
     <div class="contenido">
       <div class="emoji-flor">&#127799;</div>
       <h2>Falta muy poco</h2>
@@ -416,7 +440,7 @@
       <p class="destacar" style="margin-top:18px;font-style:italic;color:var(--vino);">De tu hermano y tu cu&ntilde;is, we love you.</p>
       <p class="sub" style="margin-top:18px;">Happy Bday Katherina Petrova</p>
       <div class="nav">
-        <button class="boton atras" onclick="ir(9)">Atr&aacute;s</button>
+        <button class="boton atras" onclick="ir(10)">Atr&aacute;s</button>
         <button class="boton suave" onclick="reiniciar()">Ver de nuevo</button>
       </div>
     </div>
@@ -425,13 +449,12 @@
 </div>
 
 <script>
-  // ---- Carga de imagenes a prueba de nombres (prueba varias extensiones) ----
   const EXTS=['.jpeg','.jpg','.JPEG','.JPG','.png','.PNG','.HEIC','.heic'];
   function cargarImg(img){
     const base=img.getAttribute('data-base');
     let i=0;
     function probar(){
-      if(i>=EXTS.length){ return; } // no encontro, deja el recuadro
+      if(i>=EXTS.length){ return; }
       img.onerror=function(){ i++; probar(); };
       img.src=base+EXTS[i];
     }
@@ -445,7 +468,7 @@
     escenas.forEach(e=>e.classList.remove('activa'));
     escenas[n].classList.add('activa');
     escenas[n].scrollTop = 0;
-    if(n===8){ escribir147(); }
+    if(n===9){ escribir147(); }
   }
 
   function abrirCarta(){
@@ -466,7 +489,7 @@
       setTimeout(function(){
         pistaActual=0;
         mostrarPista();
-        ir(7);
+        ir(8);
         d.classList.remove('on');
         svg.classList.remove('abierto');
         svg.classList.add('latiendo');
@@ -496,12 +519,11 @@
       (pistaActual >= pistas.length-1) ? "Ver mi sorpresa" : "Continuar";
   }
   function siguientePista(){
-    if(pistaActual >= pistas.length-1){ ir(8); return; }
+    if(pistaActual >= pistas.length-1){ ir(9); return; }
     pistaActual++;
     mostrarPista();
   }
 
-  // mensaje 147 se escribe solo
   let esc147=null;
   function escribir147(){
     const t=document.getElementById('msg147');
